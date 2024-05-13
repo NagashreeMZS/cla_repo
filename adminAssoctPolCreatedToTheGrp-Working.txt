@@ -1,0 +1,16 @@
+    @Test
+    @Tag("Sanity")
+    @DisplayName("SSD-TC-14015: Validate if admin is able to associate policy created to the group")
+    public void adminAssoctPolCreatedToTheGrp() {
+        String timeStamp = new SimpleDateFormat("MMddyyyyHHmmss").format(Calendar.getInstance().getTime());
+        String policyname = "demo" + timeStamp;
+        String policydesc = "description" + timeStamp;
+        String groupname = "Zscaler" + timeStamp;
+        String groupdesc = "Description" + timeStamp;
+        commonMethods.loginAdmin(driver);
+        commonMethods.createPolicy(driver, policyname, policydesc,
+            "{\"Vertical\":100,\"ShowUser\":true,\"Transparency\":0.17,\"ShowMac\":false}");
+        commonMethods.createPolicyGroup(driver, groupname, groupdesc, policyname);
+        commonMethods.deleteGroup(driver, groupname);
+        commonMethods.deletePolicy(driver, policyname);
+    }
